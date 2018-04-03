@@ -1,1 +1,61 @@
 
+def menu_inicial():
+    print('')
+    print('Controle de estoque')
+    print('0 - Sair')
+    print('1 - Adicionar item')
+    print('2 - Remover item')
+    print('3 - Alterar item')
+    print('4 - Imprimir estoque')
+    print('5 - Voltar')
+    menu = int(input('Faça sua escolha: '))
+    return menu
+
+
+estoque = {}
+
+menu = menu_inicial()
+if menu != 0:
+    while menu != 0:
+        if menu == 1:
+            produto = input('Nome do Produto: ')
+            if produto not in estoque:
+                quant = input('Quantidade Inicial: ')
+                while int(quant) < 0:
+                    print('Quantidade Inicial não pode ser negativa')
+                    quant = input('Quantidade Inicial: ')
+                if int(quant) >= 0:
+                    estoque[produto] = quant
+            else:
+                print('Produto já cadastrado')
+        
+        if menu == 2:
+            produto = input('Produto a ser deletado: ')
+            while produto not in estoque:
+                print('Produto não encontrado')
+                produto = input('Produto a ser deletado: ')
+            del estoque[produto]
+            print('Produto deletado')
+
+        if menu == 3:
+            produto = input('Nome do Produto: ')
+            if produto in estoque:
+                quant = input('Quantidade: ')
+                estoque[produto] = str(int(estoque[produto]) +  int(quant))
+                print('Novo estoque de {0}: {1}'.format(produto,estoque[produto]))
+            
+        if menu == 4:
+            for item in estoque:
+                for char in estoque[item]:        
+                    print("{0}: {1}".format(char, estoque[item][char]))
+                print("\n")
+            
+        if menu ==5:
+            
+            print('5')
+        
+        
+        
+        menu = menu_inicial()
+
+print('Até mais')
