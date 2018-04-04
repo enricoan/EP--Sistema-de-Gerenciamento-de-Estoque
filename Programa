@@ -45,10 +45,9 @@ if menu != 0:
                 print('Novo estoque de {0}: {1}'.format(produto,estoque[produto]))
             
         if menu == 4:
-            for item in estoque:
-                for char in estoque[item]:        
-                    print("{0}: {1}".format(char, estoque[item][char]))
-                print("\n")
+            print(estoque)
+            for produto in estoque:        
+                print("{0}: {1}\n".format(produto, estoque[produto]))
             
         if menu ==5:
             
