@@ -14,17 +14,15 @@ with open('estoque.json', 'r') as est:
     
 while menu != 0:
     if menu == 1:
-        produto = input('Nome do Produto: ')
-        if produto not in estoque:
-            estoque[produto] = {}
-            quant = int(input('Quantidade: '))
-            while quant <= 0:
-                print('Quantidade Inicial não pode ser negativa')
-                quant = int(input('Quantidade Inicial: '))
-            estoque[produto]['quantidade'] = quant
-            print((estoque[produto]['quantidade']))
+        p_n= input("Nome do produto: ") #p_n= produto novo
+        qtd0_pn= int(input('Quantidade inicial do produto novo: ')) #qtd0_pn= quantidade inicial do produto novo
+        if p_n not in estoque:
+            estoque[p_n]= qtd0_pn
         else:
-            print('Produto já cadastrado')
+            print("Esse produto já existe. Registr-o com outro nome ou altere a sua quntidade.") 
+        if qtd0_pn < 0:
+            print("A quantidade inicial não pode ser negativa.")
+        print('O produto foi registrado no estoque.')
         
     if menu == 2:
         produto = input('Produto a ser deletado: ')
