@@ -6,27 +6,45 @@ print('0 - Sair')
 print('1 - Adicionar item')
 print('2 - Remover item')
 print('3 - Alterar item')
-print('4 - Imprimir estoque')
+print('4 - Alterar preço')
+print('5 - Imprimir estoque')
 menu = int(input('Faça sua escolha: '))
 
 with open('estoque.json', 'r') as est:
     estoque = json.loads(est.read())
     
+estoque= {"nome do produto": {'quantidade': '0', 'preço': '0'}
+         } 
 while menu != 0:
-    if menu == 1:
-        p_n= input("Nome do produto: ") #p_n= produto novo
-        qtd0_pn= int(input('Quantidade inicial do produto novo: ')) #qtd0_pn= quantidade inicial do produto novo
-        if p_n not in estoque:
-            estoque[p_n]= qtd0_pn
-        else:
-            print("Esse produto já existe. Registr-o com outro nome ou altere a sua quntidade.") 
+
+        if comando not in range(0,6,1):
+        print('')
+        print("Digite um comando válido")
+
+   if comando == 1:
+        produto= str(input("Nome do produto: ")) #p_n= produto novo
+        
+        qtd0_pn= int(input('Quantidade inicial do produto: ')) #qtd0_pn= quantidade inicial do produto novo
         if qtd0_pn < 0:
             print("A quantidade inicial não pode ser negativa.")
-        print('O produto foi registrado no estoque.')
+        valor_inicial= int(input('Preço inicial do produto: '))
+
+        if produto not in estoque:
+            estoque.setdefault(produto, []).append(qtd0_pn)    
+        if produto in estoque:
+            print("Esse produto já existe. Registre-o com outro nome ou altere a sua quantidade.")
+        else:
+            print('O produto foi registrado no estoque.')    
         
+            
+        if valor_inicial < 0:
+            print('O preço inicial não pode ser negativo')
+        elif valor_inicial > 0:
+             estoque.setdefault(produto, []).append(valor_inicial)
+             
     if menu == 2:
         produto = input('Produto a ser deletado: ')
-        while produto not in estoque:
+        if produto not in estoque:
             print('Produto não encontrado')
             produto = input('Produto a ser deletado: ')
         del estoque[produto]
@@ -40,9 +58,15 @@ while menu != 0:
             print('Novo estoque de {0}: {1}'.format(produto,estoque[produto]))
      
     if menu == 4:
-        for produto in estoque:   
-            print('')
-            print("{0}: {1}".format(produto, estoque[produto]['quantidade']))
+        produto = input('Qual produto terá o seu valor alterado? ')
+        delta_preço = input('Qual é o novo preço do produto? ')
+        estoque[produto]= delta_preço
+    
+    if menu == 5:
+        for produto in estoque:  
+            print('Estoque atualizado: ')
+            for k in estoque:
+                print('{0}: {1}'.format(k, estoque[k]))
         
                 
     print('')
@@ -51,10 +75,12 @@ while menu != 0:
     print('1 - Adicionar item')
     print('2 - Remover item')
     print('3 - Alterar item')
-    print('4 - Imprimir estoque')
+    print('4 - Alterar preço do item')
+    print('5 - Imprimir estoque')
     menu = int(input('Faça sua escolha: '))
     
 original = json.dumps(estoque, sort_keys = False, indent = 4)
 with open('estoque.json','w') as est:
     est.write(original)
+if menu == 0
 print('Até mais')
