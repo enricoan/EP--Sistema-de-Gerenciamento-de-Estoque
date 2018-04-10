@@ -15,24 +15,26 @@ with open('estoque.json', 'r') as est:
     
 while menu != 0:
 
-    if menu not in range(0,6,1):
+    if menu not in range(0,6):
         print('')
         print("Digite um comando válido")
 
     if menu == 1:
-        produto= str(input("Nome do produto: ")) 
+        produto= input("Nome do produto: ")
         
         quant= int(input('Quantidade inicial do produto: '))
-        if quant < 0:
+        while quant < 0:
             print("A quantidade inicial não pode ser negativa.")
-        preco = float(input('Preço do produto: '))
-
+            quant= int(input('Quantidade inicial do produto: '))
         if produto not in estoque:
             estoque.setdefault(produto, []).append(quant)    
         elif produto in estoque:
             print("Produto já cadastrado.") 
         else:
-            print('O produto foi registrado no estoque.')        
+            print('O produto foi registrado no estoque.') 
+        preco = float(input('Preço do produto: '))
+
+       
         while preco <= 0:
             print('O preço não pode ser negativo ou nulo')
             preco = float(input('Preço do produto: '))
@@ -44,7 +46,7 @@ while menu != 0:
             print('Produto não encontrado')
             produto = input('Produto a ser deletado: ')
         ctz = input('Voçê tem certeza que quer deletar {0}? '.format(produto))
-        if ctz == 'sim' or ctz == 'Sim':
+        if ctz == 'sim' or ctz == 'Sim' or ctz == 'SIM':
             del estoque[produto]
             print('Produto deletado')
 
