@@ -55,7 +55,9 @@ while menu != 0:
             print('Produto não encontrado')
             produto = input('Produto a ser deletado: ')
         ctz = input('Voçê tem certeza que quer deletar {0}? '.format(produto))
-        if ctz == 'sim' or ctz == 'Sim' or ctz == 'SIM':
+        if ctz == 'sim' or ctz == 'Sim': 
+            del estoque[produto]
+        if ctz == 'SIM':
             del estoque[produto]
             print('Produto deletado')
 
