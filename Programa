@@ -12,10 +12,10 @@ print("4 - remover item")
 print("5 - alterar item")
 print("6 - alterar preço")
 print('7 - imprimir estoque')
-comando= int(input('Digite o comando: '))
+menu= int(input('Digite o comando: '))
 
 estoque= {}
-loja= {estoque}
+loja= {estoque} #ainda tem que arrumar isso, se nao todas as lojas vao ter o mesmo estoque
 
 with open('estoque.json', 'r') as est:
     estoque = json.loads(est.read())
@@ -73,9 +73,10 @@ while menu != 0:
         estoque[produto]= preco
     
     if menu == 7:
-        for produto in estoque:   
-            print('')
-            print("{0}: {1}({2})".format(produto, estoque[produto]['preco'], estoque[produto]['quantidade']))
+       print('')
+        print('Estoque atualizado: ')
+        for k in estoque:
+            print('{0}: {1}'.format(k, estoque[k]))
             
     print('')
     print("Controle de estoque")
@@ -88,7 +89,7 @@ while menu != 0:
     print("5 - alterar item")
     print("6 - alterar preço")
     print('7 - imprimir estoque')
-    comando= int(input('Digite o comando: '))
+    menu= int(input('Digite o comando: '))
     
 original = json.dumps(estoque, sort_keys = False, indent = 4)
 with open('estoque.json','w') as est:
