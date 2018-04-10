@@ -81,3 +81,7 @@ original = json.dumps(estoque, sort_keys = False, indent = 4)
 with open('estoque.json','w') as est:
     est.write(original)
 print('Até mais')
+
+
+
+print('ola mundo')
