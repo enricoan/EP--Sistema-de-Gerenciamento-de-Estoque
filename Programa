@@ -1,25 +1,34 @@
 import json
 
 print('')
-print('Controle de estoque')
-print('0 - Sair')
-print('1 - Adicionar item')
-print('2 - Remover item')
-print('3 - Alterar item')
-print('4 - Alterar preço')
-print('5 - Imprimir estoque')
-menu = int(input('Faça sua escolha: '))
+print("Controle de estoque")
+print('')
+print("O que você deseja fazer?")
+print("0 - sair")
+print('1 - adicionar loja')
+print('2 - alterar estoque da loja')
+print("3 - adicionar item")
+print("4 - remover item")
+print("5 - alterar item")
+print("6 - alterar preço")
+print('7 - imprimir estoque')
+comando= int(input('Digite o comando: '))
+
+estoque= {}
+loja= {estoque}
 
 with open('estoque.json', 'r') as est:
     estoque = json.loads(est.read())
     
 while menu != 0:
 
-    if menu not in range(0,6):
+    if menu not in range(0,6,1):
         print('')
         print("Digite um comando válido")
-
+        
     if menu == 1:
+    if menu == 2:
+    if menu == 3:
         produto= input("Nome do produto: ")
         
         quant= int(input('Quantidade inicial do produto: '))
@@ -40,7 +49,7 @@ while menu != 0:
             preco = float(input('Preço do produto: '))
         estoque.setdefault(produto, []).append(preco)
              
-    if menu == 2:
+    if menu == 4:
         produto = input('Produto a ser deletado: ')
         if produto not in estoque:
             print('Produto não encontrado')
@@ -50,34 +59,36 @@ while menu != 0:
             del estoque[produto]
             print('Produto deletado')
 
-    if menu == 3:
+    if menu == 5:
         produto = input('Nome do Produto: ')
         if produto in estoque:
             quant = int(input('Quantidade: '))
             estoque[produto] = estoque[produto]['quantidade'] +  quant
             print('Novo estoque de {0}: {1}'.format(produto,estoque[produto]))
      
-    if menu == 4:
+    if menu == 6:
         produto = input('Qual produto terá o seu valor alterado? ')
         preco = input('Qual é o novo preço do produto? ')
+        
         estoque[produto]= preco
     
-    if menu == 5:
+    if menu == 7:
         for produto in estoque:   
             print('')
             print("{0}: {1}({2})".format(produto, estoque[produto]['preco'], estoque[produto]['quantidade']))
             
-        
-                
     print('')
-    print('Controle de estoque')
-    print('0 - Sair')
-    print('1 - Adicionar item')
-    print('2 - Remover item')
-    print('3 - Alterar item')
-    print('4 - Alterar preço do item')
-    print('5 - Imprimir estoque')
-    menu = int(input('Faça sua escolha: '))
+    print("Controle de estoque")
+    print("O que você deseja fazer?")
+    print("0 - sair")
+    print('1 - adicionar unidade')
+    print('2 - alterar estoque da unidade')
+    print("3 - adicionar item")
+    print("4 - remover item")
+    print("5 - alterar item")
+    print("6 - alterar preço")
+    print('7 - imprimir estoque')
+    comando= int(input('Digite o comando: '))
     
 original = json.dumps(estoque, sort_keys = False, indent = 4)
 with open('estoque.json','w') as est:
