@@ -1,0 +1,39 @@
+from tkinter import *
+
+class EP:
+
+    def __init__(self, master):
+
+        frame = Frame(master)
+        frame.pack()
+
+        self.button = Button(   # cria o botao de sair
+            frame, text="          Sair          ", fg="red", command=root.destroy
+            )
+        self.button.pack(side=BOTTOM)
+
+        self.choose = Button(frame, text="  Escolher Loja  ", command=self.choose)  # cria o botao de escolher loja
+        self.choose.pack(side=TOP)
+
+        self.add_loja = Button(frame, text=" Adicionar Loja ", command=self.add_loja)  # cria o botao de add loja
+        self.add_loja.pack(side=TOP)
+        
+        self.del_loja = Button(frame, text="   Deletar Loja   ", command=self.add_loja)
+        self.del_loja.pack(side=TOP)
+        
+
+    def add_loja(self): # função de adicionar loja
+        pass
+    
+    def choose(self):
+        pass
+    
+    def del_loja(self):
+        pass
+    
+
+root = Tk()
+
+app = EP(root)
+
+root.mainloop()
