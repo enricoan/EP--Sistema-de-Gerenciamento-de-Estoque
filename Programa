@@ -1,3 +1,6 @@
+estoque= {produto: [quantidade, valor]}
+lojas= {unidade: {produto: [quantidade, valor]}
+
 import json
 
 print('')
