@@ -91,12 +91,11 @@ while menu != 0:
         
     if menu == 9:    #imprime produtos com valor de estoque negativo
         estoque_negativo={}
-        print()
         #percorrer dicionario e observar quais valores são negativos... se valor negativo, guardar valor e key em dicionário 
-        for k, v in #dicionario_de_estoque.itens():
+        for k, v in estoque.items():
             if v < 0:
-                estoque[k]=v
-                
+                estoque_negativo[k]=v
+        print('O estoque de produto com valores negativos é:{0}'.format(estoque_negativo))    
             
     print('')
     print("Controle de estoque")
