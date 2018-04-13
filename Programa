@@ -27,9 +27,9 @@ while menu != 0:
         print("Digite um comando válido")
         
     if menu == 1:
-    
+        pass
     if menu == 2:
-    
+        pass
     if menu == 3:
         produto= input("Nome do produto: ")
         
