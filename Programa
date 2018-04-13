@@ -22,12 +22,14 @@ with open('estoque.json', 'r') as est:
     
 while menu != 0:
 
-    if menu not in range(0,6,1):
+    if menu not in range(8):
         print('')
         print("Digite um comando válido")
         
     if menu == 1:
+    
     if menu == 2:
+    
     if menu == 3:
         produto= input("Nome do produto: ")
         
