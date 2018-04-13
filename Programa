@@ -11,7 +11,8 @@ print("3 - adicionar item")
 print("4 - remover item")
 print("5 - alterar item")
 print("6 - alterar preço")
-print('7 - imprimir estoque')
+print("7 - imprimir estoque")
+print('8- imprimir valor monetário total em estoque')
 menu= int(input('Digite o comando: '))
 
 estoque= {}
@@ -22,7 +23,7 @@ with open('estoque.json', 'r') as est:
     
 while menu != 0:
 
-    if menu not in range(8):
+    if menu not in range(9):
         print('')
         print("Digite um comando válido")
         
@@ -82,6 +83,11 @@ while menu != 0:
         for k in estoque:
             print('{0}: {1}'.format(k, estoque[k]))
             
+     if menu == 8: 
+        valor_total= 
+        pass
+        print(valor_total)
+        
     print('')
     print("Controle de estoque")
     print("O que você deseja fazer?")
@@ -93,6 +99,7 @@ while menu != 0:
     print("5 - alterar item")
     print("6 - alterar preço")
     print('7 - imprimir estoque')
+    print('8- imprimir valor monetário total em estoque')
     menu= int(input('Digite o comando: '))
     
 original = json.dumps(estoque, sort_keys = False, indent = 4)
