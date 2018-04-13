@@ -3,6 +3,32 @@ lojas= {unidade: {produto: [quantidade, valor]}
 
 import json
 
+lojas= {}
+estoque= {}
+
+print('0- sair')
+print('1- adicionar loja')
+print('2- alterar loja')
+print('3 - remover loja')
+menu_inicial= input('Digite o comando inicial: ')
+
+if menu_inicial == 0:
+    print('Até mais')    
+
+if menu_inicial == 1:
+    unidade= input('Digite o nome da unidade: ')
+    lojas[unidade]= estoque
+    if unidade in lojas:
+        print('Unidade já cadastrada')
+        
+if menu_inicial == 2:
+   deleta= input('Digite o nome da unidade a ser excluída').strip
+   deleta= deleta.lower
+   del lojas[deleta]
+   
+if menu_inicial == 3:
+    pass
+
 print('')
 print("Controle de estoque")
 print('')
@@ -19,8 +45,6 @@ print('8- imprimir valor monetário total em estoque')
 print('9- Lista de produtos com quantidade de estoque negativa')
 menu= int(input('Digite o comando: '))
 
-estoque= {}
-loja= {estoque} #ainda tem que arrumar isso, se nao todas as lojas vao ter o mesmo estoque
 
 with open('estoque.json', 'r') as est:
     estoque = json.loads(est.read())
