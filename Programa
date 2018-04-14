@@ -1,5 +1,6 @@
-estoque= {produto: [quantidade, valor]}
-lojas= {unidade: {produto: [quantidade, valor]}
+#formato do dicionário atualmente: 
+#estoque= {produto: [quantidade, valor]}
+#lojas= {unidade: {produto: [quantidade, valor]}
 
 import json
 
