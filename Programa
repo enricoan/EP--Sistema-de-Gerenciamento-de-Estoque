@@ -2,33 +2,64 @@
 #estoque= {produto: [quantidade, valor]}
 #lojas= {unidade: {produto: [quantidade, valor]}
 
-import json
-
-lojas= {}
-estoque= {}
+#Menu principal
 
 print('0- sair')
-print('1- adicionar loja')
-print('2- alterar loja')
-print('3 - remover loja')
+print('1- Acessar Menu de Lojas')
+print('2- Acessar Menu de Estoques')
+print('3 - Acessar Menu de Relatórios')
 menu_inicial= input('Digite o comando inicial: ')
 
-if menu_inicial == 0:
-    print('Até mais')    
-
 if menu_inicial == 1:
-    unidade= input('Digite o nome da unidade: ')
-    lojas[unidade]= estoque
-    if unidade in lojas:
-        print('Unidade já cadastrada')
-        
+    #Menu de Lojas
+    print('0- sair')
+    print('1- adicionar loja')
+    print('2- alterar loja')
+    print('3 - remover loja')
+    menu_lojas= input('Digite o comando inicial: ')
+    
+    if menu_lojas == 0:
+        print('Até mais')    
+    
+    if menu_lojas == 1:
+        unidade= input('Digite o nome da unidade: ')
+        lojas[unidade]= estoque
+        if unidade in lojas:
+            print('Unidade já cadastrada')
+            
+    if menu_lojas == 2:
+       deleta= input('Digite o nome da unidade a ser excluída').strip
+       deleta= deleta.lower()
+       del lojas[deleta]
+     
+    if menu_lojas == 3:
+        pass
+
 if menu_inicial == 2:
-   deleta= input('Digite o nome da unidade a ser excluída').strip
-   deleta= deleta.lower()
-   del lojas[deleta]
-   
+
+    #Menu dos Estoques
+
+
 if menu_inicial == 3:
-    pass
+
+    #Menu dos relatórios
+    
+    print('0- sair')
+    print('1- Imprimir Estoque')
+    print('2- Lista de Produtos em falta')
+    print('3-Valor total em estoque')
+    
+    menu_relatorios= input('Digite o comando inicial: ')
+    
+    if menu_relatorios == 0:
+        print('Até mais')    
+    
+    if menu_relatorios == 1: # Imprime o Estoque
+        
+            
+    if menu_relatorios == 2:# gera lista de produtos em falta
+    
+    if menu_relatorios == 3: #Imprime o valor total em estoque
 
 print('')
 print("Controle de estoque")
