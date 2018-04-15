@@ -8,7 +8,7 @@ print('0- sair')
 print('1- Acessar Menu de Lojas')
 print('2- Acessar Menu de Estoques')
 print('3 - Acessar Menu de Relatórios')
-menu_inicial= input('Digite o comando inicial: ')
+menu_inicial= int(input('Digite o comando inicial: '))
 
 if menu_inicial == 1:
     #Menu de Lojas
