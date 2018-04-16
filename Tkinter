@@ -26,18 +26,18 @@ class Inicial_menu:
 #        original = json.dumps(estoque, sort_keys = True, indent = 4)
 #        with open('estoque.json','w') as est:
 #            est.write(original)
-        inicial_menu = 0
+        menu_inicial = 0
     
     def add_store(self): # função de adicionar loja
-        inicial_menu = 2
+        menu_inicial = 2
         #call new class
     
     def choose(self): #função de escolher loja e ir para os estoques
-        inicial_menu = 1
+        menu_inicial = 1
 
     
     def del_store(self): # função de deletar loja
-        inicial_menu = 3
+        menu_inicial = 3
         
         
         
@@ -73,19 +73,19 @@ class Store_menu:
         self.relatorio.pack(side=TOP)
     
     def save_exit(self):
-        pass
+        menu_lojas = 0
     
     def add_prod(self):
-        pass
+        menu_lojas = 1
     
     def alt_prod(self):
-        pass
+        menu_lojas = 2
     
     def del_prod(self):
-        pass
+        menu_lojas = 3
     
     def relatorio(self):
-        pass
+        menu_lojas = 4
     
 
 class Alterar:
@@ -110,13 +110,13 @@ class Alterar:
         
         
     def voltar(self):
-        pass
+        menu_3 = 0
     
     def add_prod(self):
-        pass
+        menu_3 = 1
     
     def change_price(self):
-        pass
+        menu_3 = 2
     
 class Relatorios:
     def __init__(self, master):
@@ -144,42 +144,42 @@ class Relatorios:
         self.money.pack(side=TOP)
         
     def voltar(self):
-        pass
+        menu_4 = 0
     
     def estoque(self):
-        pass
+        menu_4 = 1
     
     def negativo(self):
-        pass
+        menu_4 = 2
     
     def money(self):
-        pass
-    
-    
-
-root = Tk()
-
-app = Inicial_menu(root)
-
-root.mainloop()
+        menu_4 = 3
 
 
-root = Tk()
 
-app = Store_menu(root)
-
-root.mainloop()
-
-
-root = Tk()
-
-app = Alterar(root)
-
-root.mainloop()
-
-
-root = Tk()
-
-app = Relatorios(root)
-
-root.mainloop()
+#root = Tk()
+#
+#app = Inicial_menu(root)
+#
+#root.mainloop()
+#
+#
+#root = Tk()
+#
+#app = Store_menu(root)
+#
+#root.mainloop()
+#
+#
+#root = Tk()
+#
+#app = Alterar(root)
+#
+#root.mainloop()
+#
+#
+#root = Tk()
+#
+#app = Relatorios(root)
+#
+#root.mainloop()
