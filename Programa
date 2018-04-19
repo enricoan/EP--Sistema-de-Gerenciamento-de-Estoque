@@ -2,9 +2,15 @@
 #estoque= {produto: [quantidade, valor]}
 #lojas= {unidade: {produto: [quantidade, valor]}
 
-#Menu principal
+with open('estoque.json', 'r') as est:
+    estoque = json.loads(est.read())
+  
+''' Menu principal'''
 
-print('0- sair')
+estoque= {}
+lojas={}
+
+print('0- Sair')
 print('1- Acessar Menu de Lojas')
 print('2- Acessar Menu de Estoques')
 print('3 - Acessar Menu de Relatórios')
@@ -12,10 +18,10 @@ menu_inicial= int(input('Digite o comando inicial: '))
 
 if menu_inicial == 1:
     #Menu de Lojas
-    print('0- sair')
-    print('1- adicionar loja')
-    print('2- alterar loja')
-    print('3 - remover loja')
+    print('0- Sair')
+    print('1- Adicionar loja')
+    print('2- Alterar loja')
+    print('3 - Remover loja')
     menu_lojas= input('Digite o comando inicial: ')
     
     if menu_lojas == 0:
@@ -28,12 +34,13 @@ if menu_inicial == 1:
             print('Unidade já cadastrada')
             
     if menu_lojas == 2:
-       deleta= input('Digite o nome da unidade a ser excluída').strip
-       deleta= deleta.lower()
-       del lojas[deleta]
+       
      
     if menu_lojas == 3:
-        pass
+       deleta= input('Digite o nome da unidade a ser excluída').strip
+       deleta= dela.strip(' ')
+       deleta= deleta.lower()
+       del lojas[deleta]
 
 if menu_inicial == 2:
 
@@ -43,12 +50,10 @@ if menu_inicial == 2:
 if menu_inicial == 3:
 
     #Menu dos relatórios
-    
     print('0- sair')
     print('1- Imprimir Estoque')
     print('2- Lista de Produtos em falta')
     print('3-Valor total em estoque')
-    
     menu_relatorios= input('Digite o comando inicial: ')
     
     if menu_relatorios == 0:
@@ -57,41 +62,37 @@ if menu_inicial == 3:
     if menu_relatorios == 1: # Imprime o Estoque
         
             
-    if menu_relatorios == 2:# gera lista de produtos em falta
-    
+    if menu_relatorios == 2:    #imprime produtos com valor de estoque negativo
+        estoque_negativo={}
+        #percorrer dicionario e observar quais valores são negativos... se valor negativo, guardar valor e key em dicionário 
+        for k, v in estoque.items():
+            if v < 0:
+                estoque_negativo[k]=v
+        print('O estoque de produto com valores negativos é:{0}'.format(estoque_negativo))
+        
     if menu_relatorios == 3: #Imprime o valor total em estoque
 
 print('')
 print("Controle de estoque")
 print('')
 print("O que você deseja fazer?")
-print("0 - sair")
-print('1 - adicionar loja')
-print('2 - alterar estoque da loja')
-print("3 - adicionar item")
-print("4 - remover item")
-print("5 - alterar item")
-print("6 - alterar preço")
-print("7 - imprimir estoque")
-print('8- imprimir valor monetário total em estoque')
-print('9- Lista de produtos com quantidade de estoque negativa')
-menu= int(input('Digite o comando: '))
-
-
-with open('estoque.json', 'r') as est:
-    estoque = json.loads(est.read())
+print("0 - Sair")
+print('1 - Adicionar loja')
+print('2 - Alterar estoque da loja')
+print("3 - Adicionar item")
+print("4 - Remover item")
+print("5 - Alterar item")
+print("6 - Alterar preço")
+print("7 - Imprimir estoque")
+menu_produtos= int(input('Digite o comando: '))
     
-while menu != 0:
+while menu_produtos != 0:
 
-    if menu not in range(9):
+    if menu not in range(6):
         print('')
         print("Digite um comando válido")
         
-    if menu == 1:
-        pass
-    if menu == 2:
-        pass
-    if menu == 3:
+    if menu_produtos == 1:
         produto = input("Nome do produto: ")
         produto = produto.strip(" ")
         produto = produto.lower()
@@ -113,8 +114,13 @@ while menu != 0:
             print('O preço não pode ser negativo ou nulo')
             preco = float(input('Preço do produto: '))
         estoque.setdefault(produto, []).append(preco)
+        
+    if menu_produtos == 2:
+        pass
+    if menu_produtos == 3:
+
              
-    if menu == 4:
+    if menu_produtos == 4:
         produto = input('Produto a ser deletado: ')
         produto = produto.strip(" ")
         produto = produto.lower()
@@ -127,7 +133,7 @@ while menu != 0:
             del estoque[produto]
             print('Produto deletado')
 
-    if menu == 5:
+    if menu_produtos == 5:
         produto = input('Nome do Produto: ')
         produto = produto.strip(" ")
         produto = produto.lower()
@@ -138,7 +144,7 @@ while menu != 0:
          else:
             print("Produto não encontrado")
             
-    if menu == 6:
+    if menu_produtos == 6:
         produto = input('Qual produto terá o seu valor alterado? ')
         produto = produto.strip(" ")
         produto = produto.lower()
@@ -151,36 +157,21 @@ while menu != 0:
         print('Estoque atualizado: ')
         for produto in estoque:
             print('{0}: {1}'.format(produto, estoque[produto]))
-            
-    if menu == 8: #imprime o valor total disponível em estoque numa determinada loja
-        valor_total= 
-        pass
-        print(valor_total)
-        
-    if menu == 9:    #imprime produtos com valor de estoque negativo
-        estoque_negativo={}
-        #percorrer dicionario e observar quais valores são negativos... se valor negativo, guardar valor e key em dicionário 
-        for k, v in estoque.items():
-            if v < 0:
-                estoque_negativo[k]=v
-        print('O estoque de produto com valores negativos é:{0}'.format(estoque_negativo))    
+   
             
     print('')
     print("Controle de estoque")
     print("O que você deseja fazer?")
-    print("0 - sair")
-    print('1 - adicionar unidade')
-    print('2 - alterar estoque da unidade')
-    print("3 - adicionar item")
-    print("4 - remover item")
-    print("5 - alterar item")
-    print("6 - alterar preço")
-    print('7 - imprimir estoque')
-    print('8- imprimir valor monetário total em estoque')
-    print('9- Lista de produtos com quantidade de estoque negativa')
+    print("0 - Sair")
+    print("1 - Adicionar item")
+    print("2 - Remover item")
+    print("3 - Alterar item")
+    print("4 - Alterar preço")
+    print('5 - Imprimir estoque')
     menu= int(input('Digite o comando: '))
-    
+
 original = json.dumps(estoque, sort_keys = True, indent = 4)
 with open('estoque.json','w') as est:
     est.write(original)
+
 print('Até mais')
