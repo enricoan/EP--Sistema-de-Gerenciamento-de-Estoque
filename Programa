@@ -1,5 +1,5 @@
 #formato do dicionário atualmente: 
-#estoque= {produto: [quantidade, valor]}
+#        estoque= {produto: [quantidade, valor]}
 #lojas= {unidade: {produto: [quantidade, valor]}
 
 ''' #Menu principal'''
@@ -8,14 +8,10 @@ import json
 #inicialização do arquivo json que deve acompanhar o sistema para servir de backup
 with open('estoque.json', 'r') as est:
     estoque = json.loads(est.read())
-    
-estoque= {}
-lojas={}
 
 print('0- Sair')
-print('1- Acessar Menu de Lojas')
-print('2- Acessar Menu de Estoques')
-print('3 - Acessar Menu de Relatórios')
+print('1 - Acessar Menu de Lojas')
+print('2 - Acessar Menu de Relatórios')
 menu_inicial= int(input('Digite o comando inicial: '))
 
 if menu_inicial == 1:
