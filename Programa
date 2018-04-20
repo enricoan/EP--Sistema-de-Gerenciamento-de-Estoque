@@ -14,14 +14,16 @@ lojas = {}
 
 
 #Menu de Lojas
-print('0- Sair')
-print('1- Adicionar loja')
-print('2- Acessar loja')
-print('3 - Remover loja')
+print('''
+0 - Sair
+1 - Adicionar nova loja
+2 - Escolher loja
+3 - Remover loja
+''')
 menu_lojas= int(input('Digite o comando inicial: '))
     
-
-while menu_lojas != 0:
+menu_produtos = 1
+while menu_lojas != 0 and menu_produtos !=0:
     if menu_lojas == 1:
         unidade = input('Nome da nova unidade: ')
         if unidade not in lojas:
@@ -31,18 +33,18 @@ while menu_lojas != 0:
         menu_lojas = 2
             
     if menu_lojas == 2:
-       print('')
-       print("Controle de estoque")
-       print('')
-       print("O que você deseja fazer?")
-       print("0 - Sair")
-       print("1 - Adicionar item")
-       print("2 - Remover item")
-       print("3 - Alterar item")
-       print("4 - Menu Relátorio")
-       menu_produtos= int(input('Digite o comando: '))
+        print('')
+        print("Controle de estoque da loja {0}".format(unidade))
+        print('''
+0 - Sair
+1 - Adicionar Produto
+2 - Remover Item
+3 - Alterar Item
+4 - Menu Relatório
+        ''')
+        menu_produtos= int(input('Digite o comando: '))
     
-       while menu_produtos != 0:
+        while menu_produtos != 0:
     
             if menu_produtos not in range(6):
                 print('')
@@ -53,43 +55,75 @@ while menu_lojas != 0:
                 produto = produto.strip(" ")
                 produto = produto.lower()
         
-            if produto in estoque:
+            if produto in lojas[unidade]:
                 print("Produto já cadastrado.")
             else:
-                print('O produto foi registrado no estoque.')            
                 #bloco que pergunta a quantidade do produto na primeira inserção deste no estoque
-            quant= int(input('Quantidade inicial do produto: '))
-            while quant < 0:
-                print("A quantidade inicial não pode ser negativa.")
                 quant= int(input('Quantidade inicial do produto: '))
-            if produto not in estoque:
-                estoque.setdefault(produto, []).append(quant)
-                
-               #bloco que pergunta o preço do produto na primeira inserção deste no estoque 
-            preco = float(input('Preço do produto: '))
-            while preco <= 0:
-                print('O preço não pode ser negativo ou nulo')
+                while quant < 0:
+                    print("A quantidade inicial não pode ser negativa.")
+                    quant= int(input('Quantidade inicial do produto: '))
+                if produto not in lojas[unidade]:
+                    lojas[unidade].setdefault(produto, []).append(quant)
+                    
+                    
+                   #bloco que pergunta o preço do produto na primeira inserção deste no estoque 
                 preco = float(input('Preço do produto: '))
-            estoque.setdefault(produto, []).append(preco)
+                while preco <= 0:
+                    print('O preço não pode ser negativo ou nulo')
+                    preco = float(input('Preço do produto: '))
+                lojas[unidade].setdefault(produto, []).append(preco)
+                print('O produto foi registrado no estoque.')
+                print('')
+                print("Controle de estoque da loja {0}".format(unidade))
+                print('''
+0 - Sair
+1 - Adicionar Produto
+2 - Remover Item
+3 - Alterar Item
+4 - Menu Relatório
+        ''')
+                menu_produtos = input('Digite o comando: ')
     
             if menu_produtos == 2:
                 deleta = input('Produto a ser deletado: ')
                 deleta = produto.strip(" ")
                 deleta = produto.lower()
-            if produto not in estoque:
+            if produto not in lojas[unidade]:
                 print('Produto não encontrado')
+            else:
                 deleta= input('Produto a ser deletado: ')
                 ctz = input('Voçê tem certeza que quer deletar {0}? '.format(produto))
                 ctz = ctz.lower()
                 if ctz == 'sim': 
-                    del estoque[deleta]
+                    del lojas[unidade][deleta]
                     print('Produto deletado')
+                    print("Controle de estoque da loja {0}".format(unidade))
+                print('''
+0 - Sair
+1 - Adicionar Produto
+2 - Remover Item
+3 - Alterar Item
+4 - Menu Relatório
+        ''')
+                menu_produtos = input('Digite o comando: ')
+                    
+                    
             if menu_produtos == 3:
-                produto = input('Qual produto terá o seu valor alterado? ')
+                produto = input('Qual produto a ser alterado? ')
                 produto = produto.strip(" ")
                 produto = produto.lower()
-                preco = input('Qual é o novo preço do produto? ')
-                estoque[produto]= preco
+                if produto in lojas[unidade]:
+                    altera = input('Deseja alterar o preço ou a quantidade?  ')
+                    altera = produto.strip(" ")
+                    altera = produto.lower()
+                    if altera == 'preço':        
+                        preco = float(input('Qual é o novo preço do produto? '))
+                        unidade[produto]['preco']= preco
+                    elif altera == 'produto':
+                        quant = int(input('Quantidade: '))
+                        lojas[unidade][produto]['quantidade'] = lojas[unidade][produto]['quantidade'] +  quant
+                        print('Novo estoque de {0}: {1}'.format(produto,lojas[unidade][produto]['quantidade']))
     #Menu dos relatórios
             if menu_produtos == 4:
                 print('0- sair')
@@ -104,26 +138,27 @@ while menu_lojas != 0:
                 if menu_relatorios == 1: # Imprime o Estoque
                     print('')
                     print('Estoque atualizado: ')
-                    for produto in estoque:
-                        print('{0}: {1}'.format(produto, estoque[produto]))
+                    for produto in lojas[unidade]:
+                        print('{0}: {1}'.format(produto, lojas[unidade][produto]))
                         
                 if menu_relatorios == 2:    #imprime produtos com valor de estoque negativo
                     estoque_negativo={}
                     #percorrer dicionario e observar quais valores são negativos... se valor negativo, guardar valor e key em dicionário 
-                    for k, v in estoque.items():
+                    for k, v in unidade.items():
                         if v < 0:
                             estoque_negativo[k]=v
                 print('Os produtos em falta no estoque são:{0}'.format(estoque_negativo))   
                 
                 print('')
-                print("Controle de estoque")
-                print("O que você deseja fazer?")
-                print("0 - Sair")
-                print("1 - Adicionar item")
-                print("2 - Remover item")
-                print("3 - Alterar item")
-                print('4 - Menu Relátorio')
-                menu= int(input('Digite o comando: '))
+                print("Controle de estoque da loja {0}".format(unidade))
+                print('''
+0 - Sair
+1 - Adicionar Produto
+2 - Remover Item
+3 - Alterar Item
+4 - Menu Relatório
+                    ''')
+                menu_produtos= int(input('Digite o comando: '))
     
          
     if menu_lojas == 3:
@@ -144,7 +179,7 @@ while menu_lojas != 0:
 if menu_lojas == 0:
     print('Até mais')    
 
-original = json.dumps(estoque, sort_keys = True, indent = 4)
+original = json.dumps(lojas, sort_keys = True, indent = 4)
 with open('estoque.json','w') as est:
     est.write(original)
 
