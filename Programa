@@ -12,16 +12,29 @@
 #declarações
 lojas = {}
 
-#Menu de Lojas
-print('''
+#funções
+def menulojas():
+    return '''
 0 - Sair
 1 - Adicionar nova loja
 2 - Escolher loja
 3 - Remover loja
-''')
+'''
+
+def menuprodutos():
+   
+    return '''
+0 - Sair
+1 - Adicionar Produto
+2 - Remover Item
+3 - Alterar Item
+4 - Menu Relatório
+                '''
+                
+#Menu de Lojas
+print(menulojas())
 menu_lojas= int(input('Digite o comando inicial: '))
     
-
 while menu_lojas != 0:
     if menu_lojas == 1:
        unidade = input('Nome da nova unidade: ')
@@ -34,13 +47,7 @@ while menu_lojas != 0:
     if menu_lojas == 2:
         print('')
         print("Controle de estoque da loja {0}".format(unidade))
-        print('''
-0 - Sair
-1 - Adicionar Produto
-2 - Remover Item
-3 - Alterar Item
-4 - Menu Relatório
-                ''')
+        print(menuprodutos())
         menu_produtos= int(input('Digite o comando: '))
     
         while menu_produtos != 0:
@@ -73,13 +80,7 @@ while menu_lojas != 0:
                     print('O produto foi registrado no estoque.')
                     print('')
                     print("Controle de estoque da loja {0}".format(unidade))
-                    print('''
-0 - Sair
-1 - Adicionar Produto
-2 - Remover Item
-3 - Alterar Item
-4 - Menu Relatório
-                            ''')
+                    print(menuprodutos())
                     menu_produtos = input('Digite o comando: ')
     
             if menu_produtos == 2:
@@ -92,13 +93,7 @@ while menu_lojas != 0:
                     del lojas[unidade][deleta]
                     print('Produto deletado')
                     print("Controle de estoque da loja {0}".format(unidade))
-                print('''
-0 - Sair
-1 - Adicionar Produto
-2 - Remover Item
-3 - Alterar Item
-4 - Menu Relatório
-                        ''')
+                print(menuprodutos())
                 menu_produtos = input('Digite o comando PRODUTOS: ')
             
             if menu_produtos == 3:
@@ -141,13 +136,7 @@ while menu_lojas != 0:
                 
                 print('')
                 print("Controle de estoque da loja {0}".format(unidade))
-                print('''
-0 - Sair
-1 - Adicionar Produto
-2 - Remover Item
-3 - Alterar Item
-4 - Menu Relatório
-                    ''')
+                print(menuprodutos())
                 menu_produtos= int(input('Digite o comando: '))
 
    
@@ -158,12 +147,7 @@ while menu_lojas != 0:
             del lojas[deleta]
             print('Loja deletada')
             
-        print('''
-0- Sair
-1- Adicionar loja
-2- Acessar loja
-3 - Remover loja
-             ''')
+        print(menulojas())
 menu_lojas= input('Digite o comando inicial: ')
 
 if menu_lojas == 0:
