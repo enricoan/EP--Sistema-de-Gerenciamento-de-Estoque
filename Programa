@@ -123,8 +123,9 @@ while menu_lojas != 0:
                 if menu_relatorios == 1: # Imprime o Estoque
                     print('')
                     print('Estoque atualizado: ')
+                    print('Produto : Quantidade ')
                     for produto in lojas[unidade]:
-                        print('{0}: {1}'.format(produto, lojas[unidade][produto]))
+                        print('{0} : {1}'.format(produto, lojas[unidade][produto][0]))
                         
                 if menu_relatorios == 2:    #imprime produtos com valor de estoque negativo
                     estoque_negativo={}
