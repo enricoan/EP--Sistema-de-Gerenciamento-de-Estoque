@@ -126,12 +126,10 @@ while menu_lojas != 0:
                         print('{0} : {1}'.format(produto, lojas[unidade][produto][0]))
                         
                 if menu_relatorios == 2:    #imprime produtos com valor de estoque negativo
-                    estoque_negativo={}
-                    #percorrer dicionario e observar quais valores são negativos... se valor negativo, guardar valor e key em dicionário 
-                    for k, v in unidade.items():
-                        if v < 0:
-                            estoque_negativo[k]=v
-                    print('Os produtos em falta no estoque são:{0}'.format(estoque_negativo))   
+                    estoque_loja=lojas[unidade]
+                    for produto, lista in estoque_loja.items():
+                      if lista[0]<0: #Para ver se a quantidade tá negativa
+                        print('{0}:{1}'.format(produto, lista[0])) 
                 if menu_relatorios==3:
                     somatorio = 0
                     estoque_loja= lojas[unidade]
