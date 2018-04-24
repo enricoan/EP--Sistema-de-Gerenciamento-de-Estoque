@@ -27,7 +27,13 @@ menuprodutos= '''
 3 - Alterar Item
 4 - Menu Relatório
                 '''
-                
+
+menurelatorios= '''
+0- sair
+1- Imprimir Estoque
+2- Lista de Produtos em falta
+3-Valor total em estoque
+                '''
 #Menu de Lojas
 print(menulojas)
 menu_lojas= int(input('Digite o comando inicial: '))
@@ -106,12 +112,7 @@ while menu_lojas != 0:
                         print('Novo estoque de {0}: {1}'.format(produto,lojas[unidade][produto]['quantidade']))
     #Menu dos relatórios
             if menu_produtos == 4:
-                print('''
-0- sair
-1- Imprimir Estoque
-2- Lista de Produtos em falta
-3-Valor total em estoque
-                ''')
+                print(menurelatorios)
                 menu_relatorios= input('Digite o comando RELATORIOS: ')
                 
                 if menu_relatorios == 0:
@@ -143,7 +144,6 @@ while menu_lojas != 0:
                 print(menuprodutos)
                 menu_produtos= int(input('Digite o comando: '))
 
-   
     if menu_lojas == 3:
         deleta= input('Digite o nome da unidade a ser excluída: ').strip
         ctz = input('Voçê tem certeza que quer deletar {0}? '.format(produto))
