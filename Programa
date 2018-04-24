@@ -130,8 +130,14 @@ while menu_lojas != 0:
                     for k, v in unidade.items():
                         if v < 0:
                             estoque_negativo[k]=v
-                print('Os produtos em falta no estoque são:{0}'.format(estoque_negativo))   
-                
+                    print('Os produtos em falta no estoque são:{0}'.format(estoque_negativo))   
+                if menu_relatorios==3:
+                    somatorio = 0
+                    estoque_loja= lojas[unidade]
+                    for lista in estoque_loja.values(): #Percorre a lista [quanditade, preço]
+                        if lista[0]>=0: #Para evitar contar produtos em falta
+                          somatorio += lista[0]*lista[1]
+                    print('O valor total em estoque na unidade {0} é: R$ {1}'.format(unidade,somatorio))
                 print('')
                 print("Controle de estoque da loja {0}".format(unidade))
                 print(menuprodutos)
