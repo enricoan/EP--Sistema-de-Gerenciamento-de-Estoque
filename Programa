@@ -49,7 +49,7 @@ while menu_lojas != 0:
     
         while menu_produtos != 0:
     
-            if menu_produtos not in range(6):
+            if menu_produtos not in range(5):
                 print('')
                 print("Digite um comando válido")
             
