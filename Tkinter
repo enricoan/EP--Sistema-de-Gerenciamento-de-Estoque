@@ -1,185 +1,413 @@
-from tkinter import *
-import json
+import tkinter as tk
+from tkinter import ttk
+
+FONTE_GRANDE = ('Verdana', 12)
 
 
-class Inicial_menu:
-    def __init__(self, master):
-
-        menu_inicial = Frame(master)
-        menu_inicial.pack()
-
-        self.sair = Button(   # cria o botao de sair
-            menu_inicial, text="          Sair          ", fg="red", command=self.save_exit
-            )
-        self.sair.pack(side=BOTTOM)
-
-        self.choose = Button(menu_inicial, text="  Escolher Loja  ", command=self.choose)  # cria o botao de escolher loja
-        self.choose.pack(side=TOP)
-
-        self.add_loja = Button(menu_inicial, text=" Adicionar Loja ", command=self.add_store)  # cria o botao de add loja
-        self.add_loja.pack(side=TOP)
-        
-        self.del_loja = Button(menu_inicial, text="   Deletar Loja   ", command=self.del_store)
-        self.del_loja.pack(side=TOP)  #cria o botao de deletar loja
-        
-    def save_exit(self):
-#        original = json.dumps(estoque, sort_keys = True, indent = 4)
-#        with open('estoque.json','w') as est:
-#            est.write(original)
-        menu_inicial = 0
-    
-    def add_store(self): # função de adicionar loja
-        menu_inicial = 2
-        #call new class
-    
-    def choose(self): #função de escolher loja e ir para os estoques
-        menu_inicial = 1
-
-    
-    def del_store(self): # função de deletar loja
-        menu_inicial = 3
-        
-        
-        
-class Store_menu:
-    def __init__(self,master):
-        
-        menu_lojas = Frame(master)
-        menu_lojas.pack()
-        
-        self.sair = Button(   # cria o botao de sair
-            menu_lojas, text="             Sair             ", fg="red", command=self.save_exit
-            )
-        self.sair.pack(side=BOTTOM)
-        
-        
-        self.add_prod = Button(menu_lojas, text='Adicionar Produto', command=self.add_prod
-            )
-        self.add_prod.pack(side=TOP)
-        
-        
-        self.alt_prod = Button(menu_lojas, text='Alterar Produto', command=self.alt_prod
-            )
-        self.alt_prod.pack(side=TOP)
-        
-        
-        self.del_prod = Button(menu_lojas, text='Deletar Produto', command=self.del_prod
-            )
-        self.del_prod.pack(side=TOP)
-        
-        
-        self.relatorio = Button(menu_lojas, text='Relatórios', command=self.relatorio
-            )
-        self.relatorio.pack(side=TOP)
-    
-    def save_exit(self):
-        menu_lojas = 0
-    
-    def add_prod(self):
-        menu_lojas = 1
-    
-    def alt_prod(self):
-        menu_lojas = 2
-    
-    def del_prod(self):
-        menu_lojas = 3
-    
-    def relatorio(self):
-        menu_lojas = 4
+def save_exit():
+    print('salva e sai')
     
 
-class Alterar:
-    def __init__(self, master):
-        
-        alterar = Frame(master)
-        alterar.pack()
-        
-        self.voltar = Button(alterar, text='Voltar', command=self.voltar
-            )
-        self.voltar.pack(side=BOTTOM)
-        
-        
-        self.add_prod = Button(alterar, text='Alterar Quantidade', command=self.add_prod
-            )
-        self.add_prod.pack(side=TOP)
-        
-        
-        self.change_price = Button(alterar, text='Alterar Preço', command=self.change_price
-            )
-        self.change_price.pack(side=TOP)
-        
-        
-    def voltar(self):
-        menu_3 = 0
+
+class ControleEstoque(tk.Tk):
     
-    def add_prod(self):
-        menu_3 = 1
+    def __init__(self, *args, **kwargs):
+        
+        print('test')
+        
+        tk.Tk.__init__(self, *args, **kwargs)
+        container = tk.Frame(self)
+        container.pack(side='top', fill='both', expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+        
+        self.frames = {}
+        
+        for F in (Menu_lojas, Choose, Menu_Estoque, Add_Store, Relatorios, Alterar, Del_Store, Add_prod,
+                  Imprimir_Estoque, Negativo, Money_Estoque, Preco, Alt_Quant, Quant, Del_Prod,
+                  ProdutoDeletado, ConfirmarProduto, LojaDeletada, ConfirmarLoja):
+            frame = F(container, self)
+            self.frames[F] = frame
+            frame.grid(row=0, column=0, sticky='nsew')
+        
+        self.show_frames(Menu_lojas)
+        
+    def show_frames(self, cont):
+        frame = self.frames[cont]
+        frame.tkraise()
+        
+class Menu_lojas(tk.Frame):
     
-    def change_price(self):
-        menu_3 = 2
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Menu Inicial', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.sair = ttk.Button( self, text="          Sair          ",  
+                                command=save_exit)
+        self.sair.pack(side='bottom')
+
+        self.choose = ttk.Button(self, text="  Escolher Loja  ",
+                                 command=lambda:controller.show_frames(Choose))  # cria o botao de escolher loja
+        self.choose.pack(side='top')
+
+        self.add_loja = ttk.Button(self, text=" Adicionar Loja ",
+                                   command=lambda:controller.show_frames(Add_Store))  # cria o botao de add loja
+        self.add_loja.pack(side='top')
+        
+        self.del_loja = ttk.Button(self, text="   Deletar Loja   ", 
+                                   command=lambda:controller.show_frames(Del_Store))
+        self.del_loja.pack(side='top')  #cria o botao de deletar loja
+        
     
-class Relatorios:
-    def __init__(self, master):
-        
-        relatorio = Frame(master)
-        relatorio.pack()
-        
-        self.voltar = Button(relatorio, text='Voltar', command=self.voltar
-            )
-        self.voltar.pack(side=BOTTOM)
-        
-        
-        self.est = Button(relatorio, text='Imprimir Estoque', command=self.estoque
-            )
-        self.est.pack(side=TOP)
-        
-        
-        self.negativo = Button(relatorio, text='Negativo no Estoque', command=self.negativo
-            )
-        self.negativo.pack(side=TOP)
-        
-        
-        self.money = Button(relatorio, text='Total em Estoque', command=self.money
-            )
-        self.money.pack(side=TOP)
-        
-    def voltar(self):
-        menu_4 = 0
     
-    def estoque(self):
-        menu_4 = 1
+class Choose(tk.Frame):
     
-    def negativo(self):
-        menu_4 = 2
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Escolha de Unidade', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.conteudo_label = tk.StringVar()
+        label = tk.Label(self, textvariable=self.conteudo_label)
+
+        self.escolha_loja = tk.StringVar()
+        
+        unidade = tk.Entry(self)
+        unidade.configure(textvariable=self.escolha_loja)
+        unidade.pack()
+        
+        self.confirmar = ttk.Button(self, text='Confirmar', 
+                                    command=lambda:controller.show_frames(Menu_Estoque))
+        self.confirmar.pack(side='top')
+        
+    def Enviar(self):
+        self.conteudo_label.set(self.escolha_loja.get())
+        
+        
+class Add_Store(tk.Frame):
     
-    def money(self):
-        menu_4 = 3
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Adicionar nova Unidade', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.conteudo_label = tk.StringVar()
+        label = tk.Label(self, textvariable=self.conteudo_label)
+       
+
+        self.escolha_loja = tk.StringVar()
+        
+        unidade = tk.Entry(self)
+        unidade.configure(textvariable=self.escolha_loja)
+        unidade.pack()
+        
+        self.confirmar = ttk.Button(self, text='Confirmar', 
+                                    command=lambda:controller.show_frames(Menu_Estoque))
+        self.confirmar.pack(side='top')
+        
+    def Enviar(self):
+        self.conteudo_label.set(self.escolha_loja.get())
+       
+        
+class Del_Store(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Deletar Loja', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        
+        self.conteudo_label = tk.StringVar()
+        label = tk.Label(self, textvariable=self.conteudo_label)
+       
+
+        self.escolha_loja = tk.StringVar()
+        
+        unidade = tk.Entry(self)
+        unidade.configure(textvariable=self.escolha_loja)
+        unidade.pack()
+        
+        self.confirmar = ttk.Button(self, text='Confirmar', 
+                                    command=lambda:controller.show_frames(ConfirmarLoja))
+        self.confirmar.pack(side='top')
+    
+    def Enviar(self):
+        self.conteudo_label.set(self.escolha_loja.get())
+        
+        
+        
+unidade = 'ta quase'
+
+class Menu_Estoque(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Controle de Estoque da loja {0}'.format(unidade) , font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+    
+        self.sair = ttk.Button( self, text="          Sair          ",  
+                                command=save_exit)
+        self.sair.pack(side='bottom')
+        
+        self.add_prod = ttk.Button(self, text='Adicionar Produto',
+                                   command=lambda:controller.show_frames(Add_prod))
+        self.add_prod.pack(side='top')
+        
+        
+        self.alt_prod = ttk.Button(self, text='Alterar Produto', 
+                                   command=lambda:controller.show_frames(Alterar))
+        self.alt_prod.pack(side='top')
+        
+        
+        self.del_prod = ttk.Button(self, text='Deletar Produto',
+                                   command=lambda:controller.show_frames(Del_Prod))
+        self.del_prod.pack(side='top')
+        
+        
+        self.relatorio = ttk.Button(self, text='Relatórios',
+                                command=lambda:controller.show_frames(Relatorios))
+        self.relatorio.pack(side='top')
+    
+ 
+class Add_prod(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Produto a ser adicionado', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        
+        self.nome_produto_entrada = tk.StringVar()
+        label = tk.Label(self, textvariable=self.nome_produto_entrada)
+        
+        self.nome_produto = tk.StringVar()
+        
+        produto = tk.Entry(self)
+        produto.configure(textvariable=self.nome_produto)
+        produto.pack()
+        
+        self.confirmar = ttk.Button(self, text='Confirmar', 
+                                    command=lambda:controller.show_frames(Quant))
+        self.confirmar.pack(side='top')
+    
+    def Enviar(self):
+        self.conteudo_label.set(self.escolha_loja.get())
+    
+class Alterar(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Alterar Itens' , font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.voltar = ttk.Button(self, text='Voltar', 
+                                 command=lambda:controller.show_frames(Menu_Estoque))
+        self.voltar.pack(side='bottom')
+        
+        
+        self.add_prod = ttk.Button(self, text='Alterar Quantidade', 
+                                   command=lambda:controller.show_frames(Alt_Quant))
+        self.add_prod.pack(side='top')
+        
+        
+        self.change_price = ttk.Button(self, text='Alterar Preço', 
+                                       command=lambda:controller.show_frames(Preco))
+        self.change_price.pack(side='top')
+        
+    
+class Relatorios(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Menu de Relatorios' , font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.voltar = ttk.Button(self, text='Voltar',
+                                 command=lambda:controller.show_frames(Menu_Estoque))
+        self.voltar.pack(side='bottom')
+        
+        
+        self.est = ttk.Button(self, text='Imprimir Estoque',
+                              command=lambda:controller.show_frames(Imprimir_Estoque))
+        self.est.pack(side='top')
+        
+        
+        self.negativo = ttk.Button(self, text='Lista de Produtos em falta',
+                                   command=lambda:controller.show_frames(Negativo))
+        self.negativo.pack(side='top')
+        
+        
+        self.money = ttk.Button(self, text='Valor total em estoque',
+                                command=lambda:controller.show_frames(Money_Estoque))
+        self.money.pack(side='top')
 
 
+class Imprimir_Estoque(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Estoque atualizado' , font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        print('imprimir estoque')
+        
+        self.voltar = ttk.Button(self, text='Voltar',
+                                 command=lambda:controller.show_frames(Relatorios))
+        self.voltar.pack(side='bottom')
+    
 
-#root = Tk()
-#
-#app = Inicial_menu(root)
-#
-#root.mainloop()
-#
-#
-#root = Tk()
-#
-#app = Store_menu(root)
-#
-#root.mainloop()
-#
-#
-#root = Tk()
-#
-#app = Alterar(root)
-#
-#root.mainloop()
-#
-#
-#root = Tk()
-#
-#app = Relatorios(root)
-#
-#root.mainloop()
+class Negativo(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Produtos em falta' , font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        print('Falta no estoque')
+        
+        self.voltar = ttk.Button(self, text='Voltar',
+                                 command=lambda:controller.show_frames(Relatorios))
+        self.voltar.pack(side='bottom')
+        
+
+class Money_Estoque(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Total monetário em estoque' , font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        print('Total monetario em estoque')
+        
+        self.voltar = ttk.Button(self, text='Voltar',
+                                 command=lambda:controller.show_frames(Relatorios))
+        self.voltar.pack(side='bottom')
+        
+class Alt_Quant(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Quantidade adicionada ou removida', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.conteudo_label = tk.StringVar()
+        label = tk.Label(self, textvariable=self.conteudo_label)
+       
+        self.quantidade = tk.StringVar()
+        
+        quant = tk.Entry(self)
+        quant.configure(textvariable=self.quantidade)
+        quant.pack()
+        
+        self.confirmar = ttk.Button(self, text='Confirmar', 
+                                    command=lambda:controller.show_frames(Menu_Estoque))
+        self.confirmar.pack(side='top')
+        
+        
+class Preco(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Preço do Produto', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.conteudo_label = tk.StringVar()
+        label = tk.Label(self, textvariable=self.conteudo_label)
+       
+        self.quantidade = tk.StringVar()
+        
+        quant = tk.Entry(self)
+        quant.configure(textvariable=self.quantidade)
+        quant.pack()    
+        
+        self.confirmar = ttk.Button(self, text='Confirmar', 
+                                    command=lambda:controller.show_frames(Menu_Estoque))
+        self.confirmar.pack(side='top')
+        
+class Quant(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Quantidade inicial do Produto', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.conteudo_label = tk.StringVar()
+        label = tk.Label(self, textvariable=self.conteudo_label)
+       
+        self.quantidade = tk.StringVar()
+        
+        quant = tk.Entry(self)
+        quant.configure(textvariable=self.quantidade)
+        quant.pack()
+    
+        self.confirmar = ttk.Button(self, text='Confirmar', 
+                                    command=lambda:controller.show_frames(Preco))
+        self.confirmar.pack(side='top')
+        
+        
+
+class Del_Prod(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Deletar Produto', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        
+        self.conteudo_label = tk.StringVar()
+        label = tk.Label(self , textvariable=self.conteudo_label)
+       
+
+        self.escolha_loja = tk.StringVar()
+        
+        unidade = tk.Entry(self)
+        unidade.configure(textvariable=self.escolha_loja)
+        unidade.pack()
+        
+        self.confirmar = ttk.Button(self, text='Confirmar', 
+                                    command=lambda:controller.show_frames(ConfirmarProduto))
+        self.confirmar.pack(side='top')
+    
+    def Enviar(self):
+        self.conteudo_label.set(self.escolha_loja.get())
+
+class ConfirmarLoja(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Você tem certeza que deseja deletar essa loja', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.sim = ttk.Button(self, text='Sim',
+                              command=lambda:controller.show_frames(LojaDeletada))
+        self.sim.pack(side='top')
+        self.nao = ttk.Button(self, text='Não',
+                              command=lambda:controller.show_frames(Menu_lojas))
+        self.nao.pack(side='top')
+
+class LojaDeletada(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Loja deletada', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        self.ok = ttk.Button(self, text='Beleza Mano, idai???',
+                             command=lambda:controller.show_frames(Menu_lojas))
+        self.ok.pack(side='top')
+
+class ConfirmarProduto(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Você tem certeza que deseja deletar essa loja', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        
+        self.sim = ttk.Button(self, text='Sim',
+                              command=lambda:controller.show_frames(ProdutoDeletado))
+        self.sim.pack(side='top')
+        self.nao = ttk.Button(self, text='Não',
+                              command=lambda:controller.show_frames(Menu_Estoque))
+        self.nao.pack(side='top')
+
+class ProdutoDeletado(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text='Produto deletado', font=FONTE_GRANDE)
+        label.pack(pady=10,padx=10)
+        self.ok = ttk.Button(self, text='Beleza Mano, idai???',
+                             command=lambda:controller.show_frames(Menu_Estoque))
+        self.ok.pack(side='top')
+
+app = ControleEstoque()
+app.mainloop()
+        
