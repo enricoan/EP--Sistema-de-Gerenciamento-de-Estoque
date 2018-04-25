@@ -1,7 +1,12 @@
+#importando as bibliotecas
 import json
+from firebase import firebase
+
 # formato atual do dicionário: lojas = {unidade: {produto:{'quantidade': quant, 'preco': 9.35}}}
 
 #declarações
+
+firebase=firebase.FirebaseApplication('https://ep-dessoft.firebaseio.com/estoque', None)
 lojas = {}
 
 #inicialização do arquivo json que deve acompanhar o sistema para servir de backup
@@ -188,3 +193,4 @@ print('Até mais')
 original = json.dumps(lojas, sort_keys = True, indent = 4)
 with open('estoque.json','w') as est:
     est.write(original)
+firebase.put('/estoque',"Estoque", lojas)
