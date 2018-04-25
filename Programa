@@ -70,7 +70,7 @@ while menu_lojas != 0:
                 del lojas[deleta]
                 print('Loja deletada') 
             print(menulojas)
-            menu_lojas= int(input('Digite o comando INICIAL1: '))
+            menu_lojas= int(input('Digite o comando inicial: '))
             while menu_lojas not in range(4):
                 menu_lojas = int(input('Digite um comando valido:  '))
                 
