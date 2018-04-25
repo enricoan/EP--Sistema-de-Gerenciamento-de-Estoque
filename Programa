@@ -6,12 +6,14 @@ from firebase import firebase
 
 #declarações
 
-firebase=firebase.FirebaseApplication('https://ep-dessoft.firebaseio.com/estoque', None)
+firebase=firebase.FirebaseApplication('https://ep-dessoft.firebaseio.com/', None)
+
 #lojas = {}
 
-#inicialização do arquivo json que deve acompanhar o sistema para servir de backup
-with open('estoque.json', 'r') as est:
-    lojas = json.loads(est.read())
+if firebase.get('estoque',None) is None: 
+    lojas= {}
+else:
+    lojas= firebase.get('estoque',None)
 
 
 #Variaveis dos menus
@@ -232,7 +234,4 @@ if menu_lojas != 0:
 
 print('Até mais')
 
-original = json.dumps(lojas, sort_keys = True, indent = 4)
-with open('estoque.json','w') as est:
-    est.write(original)
-firebase.put('/estoque',"Estoque", lojas)
+firebase.patch('https://ep-dessoft.firebaseio.com/', lojas)
