@@ -167,6 +167,11 @@ class Menu_Estoque(tk.Frame):
         self.relatorio = ttk.Button(self, text='Relatórios',
                                 command=lambda:controller.show_frames(Relatorios))
         self.relatorio.pack(side='top')
+        
+        self.voltar = ttk.Button(self, text='voltar',
+                                command=lambda:controller.show_frames(Menu_lojas))
+        self.voltar.pack(side='top')
+        
     
  
 class Add_prod(tk.Frame):
@@ -389,7 +394,7 @@ class LojaDeletada(tk.Frame):
 class ConfirmarProduto(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text='Você tem certeza que deseja deletar essa loja', font=FONTE_GRANDE)
+        label = tk.Label(self, text='Você tem certeza que deseja deletar esse produto', font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
         
         self.sim = ttk.Button(self, text='Sim',
