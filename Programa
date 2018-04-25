@@ -9,6 +9,8 @@ with open('estoque.json', 'r') as est:
 #declarações
 #lojas = {}
 
+#Variaveis dos menus
+
 menulojas= '''
 0 - Sair
 1 - Adicionar nova loja
@@ -30,9 +32,11 @@ menurelatorios='''
 2 - Lista de Produtos em falta
 3 - Valor total em estoque
 '''
+
 #Menu de Lojas
+
 print(menulojas)
-menu_lojas= int(input('Digite o comando INICIAL1: '))
+menu_lojas= int(input('Digite o comando inicial: '))
 while menu_lojas not in range(4):
     menu_lojas = int(input('Digite um comando valido:  '))
     
@@ -52,12 +56,12 @@ while menu_lojas != 0:
         print('Unidades:')
         for unidade in lojas:
             print(unidade)
-        unidade = input('Escolha a sua loja(cancel para voltar):  ')
+        unidade = input('Escolha a sua loja(Digite cancel para voltar):  ')
         if unidade in lojas:
             break
         if unidade == 'cancel':
             print(menulojas)
-            menu_lojas= int(input('Digite o comando INICIAL1: '))
+            menu_lojas= int(input('Digite o comando inicial: '))
             
     if menu_lojas == 3:
             deleta= input('Digite o nome da unidade a ser excluída: ')
@@ -72,7 +76,7 @@ while menu_lojas != 0:
                 
 if menu_lojas != 0:
     print('')
-    print("                  Controle de estoque da loja {0}".format(unidade))
+    print("Controle de estoque da loja {0}".format(unidade))
     print(menuprodutos)
     menu_produtos= int(input('Digite o comando: '))
 
@@ -123,7 +127,7 @@ if menu_lojas != 0:
     
         
         if menu_produtos == 3:
-           produto = input('Qual produto a ser alterado? ')
+           produto = input('Qual é produto a ser alterado? ')
            if produto in lojas[unidade]:
                altera = input('Deseja alterar o preço ou a quantidade?  ')
                if altera == 'preço':        
@@ -138,11 +142,11 @@ if menu_lojas != 0:
     #Menu dos relatórios
         if menu_produtos == 4:
             print(menurelatorios)
-            menu_relatorios = int(input('Digite o comando RELATORIOS: '))
+            menu_relatorios = int(input('Digite o relatório desejado: '))
             
             while menu_relatorios not in range(4):
                 print(menurelatorios)
-                menu_relatorios = int(input('Digite o comando RELATORIOS: '))
+                menu_relatorios = int(input('Digite o relatório desejado: '))
                 
             while menu_relatorios != 0:
                 
@@ -160,12 +164,12 @@ if menu_lojas != 0:
                         print('{0}:{1}'.format(produto, lojas[unidade][produto]['quantidade']))
                         tester += 1
                     if tester == 0:
-                        print("Não falta nenhum produto")
+                        print("Não há produto(s) em falta")
                         
                         
                 if menu_relatorios == 3:
                     somatorio = 0
-                    for produto in lojas[unidade]: #Percorre a lista [quanditade, preço]
+                    for produto in lojas[unidade]: #Percorre a lista [quantidade, preço]
                          somatorio += lojas[unidade][produto]['quantidade']*lojas[unidade][produto]['preco']
                     print('O valor total em estoque na unidade {0} é: R$ {1}'.format(unidade,somatorio))
                               
@@ -174,7 +178,7 @@ if menu_lojas != 0:
 
     
         print(menuprodutos)
-        menu_produtos= int(input('Digite o comando PRODUTOoooo: '))
+        menu_produtos= int(input('Digite o comando produto: '))
 
 
 
