@@ -1,13 +1,13 @@
 import json
+# formato atual do dicionário: lojas = {unidade: {produto:{'quantidade': quant, 'preco': 9.35}}}
 
-#lojas = {unidade: {produto:{'quantidade': quant, 'preco': 9.35}}}
+#declarações
+lojas = {}
 
 #inicialização do arquivo json que deve acompanhar o sistema para servir de backup
 with open('estoque.json', 'r') as est:
     lojas = json.loads(est.read())
 
-#declarações
-#lojas = {}
 
 #Variaveis dos menus
 
