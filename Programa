@@ -82,11 +82,11 @@ if menu_lojas != 0:
 
     while menu_produtos != 0:
     
-        if menu_produtos not in range(5):
+        while menu_produtos not in range(5):
             print('')
             menu_produtos = int(input("Digite um comando válido:  "))
         
-        elif menu_produtos == 1:
+        if menu_produtos == 1:
             produto = input("Nome do produto: ")
     
             if produto in lojas[unidade]:
