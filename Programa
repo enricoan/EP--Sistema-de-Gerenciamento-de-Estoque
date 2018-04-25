@@ -1,5 +1,5 @@
 #importando as bibliotecas
-import json
+
 from firebase import firebase
 
 # formato atual do dicionário: lojas = {unidade: {produto:{'quantidade': quant, 'preco': 9.35}}}
