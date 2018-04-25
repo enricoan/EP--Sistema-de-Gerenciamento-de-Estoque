@@ -8,12 +8,12 @@ from firebase import firebase
 
 firebase=firebase.FirebaseApplication('https://ep-dessoft.firebaseio.com/', None)
 
-#lojas = {}
-
+#Caso não exista nada na nuvem, ele cria um dicionário das lojas
 if firebase.get('estoque',None) is None: 
     lojas= {}
-else:
-    lojas= firebase.get('estoque',None)
+#recebe os dados da nuvem
+else: 
+    lojas = firebase.get('estoque', None)
 
 
 #Variaveis dos menus
@@ -234,4 +234,4 @@ if menu_lojas != 0:
 
 print('Até mais')
 
-firebase.patch('https://ep-dessoft.firebaseio.com/', lojas)
+firebase.patch('https://ep-dessoft.firebaseio.com/estoque', lojas)
