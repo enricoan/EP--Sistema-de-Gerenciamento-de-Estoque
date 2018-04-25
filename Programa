@@ -7,7 +7,7 @@ from firebase import firebase
 #declarações
 
 firebase=firebase.FirebaseApplication('https://ep-dessoft.firebaseio.com/estoque', None)
-lojas = {}
+#lojas = {}
 
 #inicialização do arquivo json que deve acompanhar o sistema para servir de backup
 with open('estoque.json', 'r') as est:
