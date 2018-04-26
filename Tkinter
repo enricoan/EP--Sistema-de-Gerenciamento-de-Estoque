@@ -1,19 +1,30 @@
 import tkinter as tk
 from tkinter import ttk
+import json
+
 
 FONTE_GRANDE = ('Verdana', 12)
 
 
 def save_exit():
-    print('salva e sai')
     
+    menu_lojas = 0
+    menu_produtos = 0
+    
+    original = json.dumps(lojas, sort_keys = True, indent = 4)
+    with open('estoque.json','w') as est:
+        est.write(original)
+#    ControleEstoque.quit()
+            
+    
+    
+with open('estoque.json', 'r') as est:
+    lojas = json.loads(est.read())    
 
 
 class ControleEstoque(tk.Tk):
     
     def __init__(self, *args, **kwargs):
-        
-        print('test')
         
         tk.Tk.__init__(self, *args, **kwargs)
         container = tk.Frame(self)
@@ -64,6 +75,9 @@ class Menu_lojas(tk.Frame):
 class Choose(tk.Frame):
     
     def __init__(self, parent, controller):
+        
+        menu_lojas = 2
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Escolha de Unidade', font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
@@ -81,6 +95,9 @@ class Choose(tk.Frame):
                                     command=lambda:controller.show_frames(Menu_Estoque))
         self.confirmar.pack(side='top')
         
+        if unidade not in lojas:
+            pass
+        
     def Enviar(self):
         self.conteudo_label.set(self.escolha_loja.get())
         
@@ -88,6 +105,9 @@ class Choose(tk.Frame):
 class Add_Store(tk.Frame):
     
     def __init__(self, parent, controller):
+        
+        menu_lojas = 1
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Adicionar nova Unidade', font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
@@ -112,6 +132,9 @@ class Add_Store(tk.Frame):
         
 class Del_Store(tk.Frame):
     def __init__(self, parent, controller):
+        
+        menu_lojas = 3
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Deletar Loja', font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
@@ -145,7 +168,7 @@ class Menu_Estoque(tk.Frame):
         label = tk.Label(self, text='Controle de Estoque da loja {0}'.format(unidade) , font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
     
-        self.sair = ttk.Button( self, text="          Sair          ",  
+        self.sair = ttk.Button( self, text="             Sair             ",  
                                 command=save_exit)
         self.sair.pack(side='bottom')
         
@@ -154,21 +177,21 @@ class Menu_Estoque(tk.Frame):
         self.add_prod.pack(side='top')
         
         
-        self.alt_prod = ttk.Button(self, text='Alterar Produto', 
+        self.alt_prod = ttk.Button(self, text='   Alterar Produto  ', 
                                    command=lambda:controller.show_frames(Alterar))
         self.alt_prod.pack(side='top')
         
         
-        self.del_prod = ttk.Button(self, text='Deletar Produto',
+        self.del_prod = ttk.Button(self, text='  Deletar Produto  ',
                                    command=lambda:controller.show_frames(Del_Prod))
         self.del_prod.pack(side='top')
         
         
-        self.relatorio = ttk.Button(self, text='Relatórios',
+        self.relatorio = ttk.Button(self, text='       Relatórios       ',
                                 command=lambda:controller.show_frames(Relatorios))
         self.relatorio.pack(side='top')
         
-        self.voltar = ttk.Button(self, text='voltar',
+        self.voltar = ttk.Button(self, text='           Voltar          ',
                                 command=lambda:controller.show_frames(Menu_lojas))
         self.voltar.pack(side='top')
         
@@ -176,8 +199,11 @@ class Menu_Estoque(tk.Frame):
  
 class Add_prod(tk.Frame):
     def __init__(self, parent, controller):
+        
+        menu_produtos = 1
+        
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text='Produto a ser adicionado', font=FONTE_GRANDE)
+        label = tk.Label(self, text='Produto a ser adicionado ', font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
         
         
@@ -199,6 +225,9 @@ class Add_prod(tk.Frame):
     
 class Alterar(tk.Frame):
     def __init__(self, parent, controller):
+        
+        menu_produtos = 3
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Alterar Itens' , font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
@@ -213,23 +242,26 @@ class Alterar(tk.Frame):
         self.add_prod.pack(side='top')
         
         
-        self.change_price = ttk.Button(self, text='Alterar Preço', 
+        self.change_price = ttk.Button(self, text='      Alterar Preço     ', 
                                        command=lambda:controller.show_frames(Preco))
         self.change_price.pack(side='top')
         
     
 class Relatorios(tk.Frame):
     def __init__(self, parent, controller):
+        
+        menu_produtos = 4
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Menu de Relatorios' , font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
         
-        self.voltar = ttk.Button(self, text='Voltar',
+        self.voltar = ttk.Button(self, text='       Voltar      ',
                                  command=lambda:controller.show_frames(Menu_Estoque))
         self.voltar.pack(side='bottom')
         
         
-        self.est = ttk.Button(self, text='Imprimir Estoque',
+        self.est = ttk.Button(self, text='        Imprimir Estoque       ',
                               command=lambda:controller.show_frames(Imprimir_Estoque))
         self.est.pack(side='top')
         
@@ -239,19 +271,19 @@ class Relatorios(tk.Frame):
         self.negativo.pack(side='top')
         
         
-        self.money = ttk.Button(self, text='Valor total em estoque',
+        self.money = ttk.Button(self, text='   Valor total em estoque   ',
                                 command=lambda:controller.show_frames(Money_Estoque))
         self.money.pack(side='top')
 
 
 class Imprimir_Estoque(tk.Frame):
-    
     def __init__(self, parent, controller):
+        
+        menu_relatorios = 1
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Estoque atualizado' , font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
-        
-        print('imprimir estoque')
         
         self.voltar = ttk.Button(self, text='Voltar',
                                  command=lambda:controller.show_frames(Relatorios))
@@ -259,13 +291,13 @@ class Imprimir_Estoque(tk.Frame):
     
 
 class Negativo(tk.Frame):
-    
     def __init__(self, parent, controller):
+        
+        menu_relatorios = 2
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Produtos em falta' , font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
-        
-        print('Falta no estoque')
         
         self.voltar = ttk.Button(self, text='Voltar',
                                  command=lambda:controller.show_frames(Relatorios))
@@ -273,13 +305,13 @@ class Negativo(tk.Frame):
         
 
 class Money_Estoque(tk.Frame):
-    
     def __init__(self, parent, controller):
+        
+        menu_relatorios = 3
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Total monetário em estoque' , font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
-        
-        print('Total monetario em estoque')
         
         self.voltar = ttk.Button(self, text='Voltar',
                                  command=lambda:controller.show_frames(Relatorios))
@@ -287,6 +319,9 @@ class Money_Estoque(tk.Frame):
         
 class Alt_Quant(tk.Frame):
     def __init__(self, parent, controller):
+        
+        altera = 'quantidade'
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Quantidade adicionada ou removida', font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
@@ -307,6 +342,9 @@ class Alt_Quant(tk.Frame):
         
 class Preco(tk.Frame):
     def __init__(self, parent, controller):
+        
+        altera = 'preço'
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Preço do Produto', font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
@@ -347,6 +385,9 @@ class Quant(tk.Frame):
 
 class Del_Prod(tk.Frame):
     def __init__(self, parent, controller):
+        
+        menu_produtos = 2
+        
         tk.Frame.__init__(self, parent)
         label = tk.Label(self, text='Deletar Produto', font=FONTE_GRANDE)
         label.pack(pady=10,padx=10)
@@ -391,6 +432,7 @@ class LojaDeletada(tk.Frame):
                              command=lambda:controller.show_frames(Menu_lojas))
         self.ok.pack(side='top')
 
+
 class ConfirmarProduto(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -403,6 +445,7 @@ class ConfirmarProduto(tk.Frame):
         self.nao = ttk.Button(self, text='Não',
                               command=lambda:controller.show_frames(Menu_Estoque))
         self.nao.pack(side='top')
+
 
 class ProdutoDeletado(tk.Frame):
     def __init__(self, parent, controller):
